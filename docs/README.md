@@ -58,13 +58,14 @@
   - 에러메시지: "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요."
 - 메뉴판에 없는 메뉴 입력한 경우
   - 에러메시지: "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."
-- 메뉴 개수에 1 이상의 숫자를 입력하지 않은 경우
+- 메뉴 개수가 1~20의 범위 외인 경우
   - 에러메시지: "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."
 - 메뉴 형식이 예시와 다른 경우(메뉴 이름과 개수가 "-"으로 구분되어 있지 않은 경우)
   - 에러메시지: "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."
 - 중복 메뉴를 입력한 경우
   - 에러메시지: "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."
-
+- 주문 메뉴에 음료만 있는 경우
+  - 에러메시지: "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."
 
 
 ## 구조 설계
@@ -82,6 +83,7 @@
 - STAR : 5,000
 - TREE : 10,000
 - SANTA : 20,000
+- NONE : 0
 
 [OrderMenu]
 - domain entity
@@ -99,8 +101,11 @@
 - domain entity
 - orderHistory: Order
 - promotionResult: List<HashMap<String, Integer>>
+- totalPromotionAmount: Integer
 - addChristmasDDayEvent: void
 - addWeekDayEvent: void
 - addWeekEndEvent: void
 - addSpecialEvent: void
 - addPresentationEvent: void
+- getDecemberEventBadge: DecemberEventBadge
+- getExpectedPaymentAmount: Integer
