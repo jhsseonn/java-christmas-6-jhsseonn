@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.consts;
 
 public enum ChristmasPromotionEvents {
     CHRISTMAS_DDAY_PROMOTION,

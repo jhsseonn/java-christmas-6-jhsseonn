@@ -1,6 +1,4 @@
-package christmas.domain;
-
-import christmas.consts.ChristmasConsts;
+package christmas.consts;
 
 import java.util.Arrays;
 import java.util.HashMap;

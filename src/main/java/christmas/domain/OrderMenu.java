@@ -1,5 +1,7 @@
 package christmas.domain;
 
+import christmas.consts.ChristmasMenu;
+
 public class OrderMenu {
     private ChristmasMenu christmasMenu;
     private String menu;

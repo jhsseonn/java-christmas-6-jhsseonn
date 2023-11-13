@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.consts;
 
 import christmas.consts.ChristmasConsts;
 
