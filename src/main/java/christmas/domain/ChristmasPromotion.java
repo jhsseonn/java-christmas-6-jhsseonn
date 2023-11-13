@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,13 +9,9 @@ public class ChristmasPromotion {
     private List<HashMap<String, Integer>> promotionResult;
     private int totalPromotionAmount;
 
-    private ChristmasPromotion(
-            Order orderHistory,
-            List<HashMap<String, Integer>> promotionResult,
-            int totalPromotionAmount
-    ){
+    public ChristmasPromotion(Order orderHistory){
         this.orderHistory = orderHistory;
-        this.promotionResult = promotionResult;
-        this.totalPromotionAmount = totalPromotionAmount;
+        this.promotionResult = new ArrayList<>();
+        this.totalPromotionAmount = 0;
     }
 }

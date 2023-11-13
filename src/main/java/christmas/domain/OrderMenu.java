@@ -11,6 +11,4 @@ public class OrderMenu {
         this.menu = menu;
         this.orderMenuCount = orderMenuCount;
     }
-
-
 }
