@@ -1,5 +1,6 @@
 package christmas;
 
+import christmas.domain.Order;
 import christmas.view.ChristmasInputView;
 import christmas.view.ChristmasOutputView;
 
@@ -12,6 +13,8 @@ public class Application {
         christmasOutputView.printWelcome();
         int expectedVisitDay = christmasInputView.getExpectedVisitDay();
         String orderMenus = christmasInputView.getOrderMenus();
+
+        Order order = new Order(expectedVisitDay, orderMenus);
 
     }
 }
