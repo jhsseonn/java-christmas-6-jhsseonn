@@ -28,6 +28,6 @@ public interface ChristmasConsts {
     int DECEMBER_EVENT_BADGE_TREE_AMOUNT = 10000;
     int DECEMBER_EVENT_BADGE_SANTA_AMOUNT = 20000;
     int DECEMBER_EVENT_BADGE_NONE_AMOUNT = 0;
-
+    String DECEMBER_EVENT_WELCOME = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
 
 }
