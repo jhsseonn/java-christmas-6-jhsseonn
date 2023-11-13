@@ -8,4 +8,9 @@ public class ChristmasInputView implements ChristmasConsts {
         System.out.println(DECEMBER_EVENT_EXPECTED_VISIT_DAY);
         return Integer.parseInt(Console.readLine());
     }
+
+    public String getOrderMenus(){
+        System.out.println(DECEMBER_EVENT_ORDER_MENU);
+        return Console.readLine();
+    }
 }

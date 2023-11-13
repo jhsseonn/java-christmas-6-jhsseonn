@@ -11,6 +11,7 @@ public class Application {
 
         christmasOutputView.printWelcome();
         int expectedVisitDay = christmasInputView.getExpectedVisitDay();
+        String orderMenus = christmasInputView.getOrderMenus();
 
     }
 }
