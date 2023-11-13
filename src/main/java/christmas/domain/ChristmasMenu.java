@@ -3,7 +3,6 @@ package christmas.domain;
 import christmas.consts.ChristmasConsts;
 
 import java.util.HashMap;
-import java.util.List;
 
 public enum ChristmasMenu implements ChristmasConsts {
     APPETIZER(APPETIZERS),
