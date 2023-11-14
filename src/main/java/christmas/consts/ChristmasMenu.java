@@ -22,4 +22,13 @@ public enum ChristmasMenu implements ChristmasConsts {
                 .findAny()
                 .orElse(NONE);
     }
+
+    public HashMap<String, Integer> getMenu(){
+        return menu;
+    }
+
+    public int getMenuPrice(String menu){
+        HashMap<String, Integer> christmasMenus = ChristmasMenu.findByMenu(menu).getMenu();
+        return christmasMenus.get(menu);
+    }
 }
