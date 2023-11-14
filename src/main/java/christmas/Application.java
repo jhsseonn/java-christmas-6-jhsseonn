@@ -29,6 +29,6 @@ public class Application {
         christmasOutputView.printOrderMenus(orderMenuPreview);
         // 총 주문 금액 알려주기
         christmasService.computeTotalOrderAmount(order);
-
+        christmasOutputView.printTotalOrderAmount(order.getTotalOrderAmount());
     }
 }

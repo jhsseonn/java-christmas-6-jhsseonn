@@ -52,4 +52,8 @@ public class Order implements ChristmasConsts {
     public void updateTotalOrderAmount(int totalOrderAmount){
         this.totalOrderAmount = totalOrderAmount;
     }
+
+    public int getTotalOrderAmount(){
+        return totalOrderAmount;
+    }
 }
