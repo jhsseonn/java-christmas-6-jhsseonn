@@ -11,6 +11,7 @@ public class Order implements ChristmasConsts {
     private LocalDate orderDate;
     private DayOfWeek orderDayOfWeek;
     private List<OrderMenu> orderMenus;
+    private int totalOrderAmount;
 
     public Order(int expectedVisitDay, String orderMenus){
         LocalDate orderDate = updateOrderDate(expectedVisitDay);
@@ -18,6 +19,7 @@ public class Order implements ChristmasConsts {
         this.orderDate = orderDate;
         this.orderDayOfWeek = orderDayOfWeek;
         this.orderMenus = updateOrderMenus(orderMenus);
+        this.totalOrderAmount = 0;
     }
 
     public LocalDate updateOrderDate(int expectedVisitDay){
@@ -41,5 +43,13 @@ public class Order implements ChristmasConsts {
             createOrderMenus.add(orderMenu);
         }
         return createOrderMenus;
+    }
+
+    public List<OrderMenu> getOrderMenus(){
+        return this.orderMenus;
+    }
+
+    public void updateTotalOrderAmount(int totalOrderAmount){
+        this.totalOrderAmount = totalOrderAmount;
     }
 }
