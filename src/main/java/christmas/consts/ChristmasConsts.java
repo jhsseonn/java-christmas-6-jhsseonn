@@ -30,6 +30,9 @@ public interface ChristmasConsts {
     List<DayOfWeek> WEEKDAYS = new ArrayList<>(
             List.of(DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY)
     );
+    List<DayOfWeek> WEEKENDS = new ArrayList<>(
+            List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY)
+    );
     int DECEMBER_EVENT_BADGE_STAR_AMOUNT = 5000;
     int DECEMBER_EVENT_BADGE_TREE_AMOUNT = 10000;
     int DECEMBER_EVENT_BADGE_SANTA_AMOUNT = 20000;

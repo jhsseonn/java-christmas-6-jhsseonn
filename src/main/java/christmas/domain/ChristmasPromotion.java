@@ -51,4 +51,25 @@ public class ChristmasPromotion implements ChristmasConsts {
         }
         return weekdayEventAmount;
     }
+
+    public int addWeekEndEvent(Order order){
+        int weekdayEventAmount = 0;
+        DayOfWeek orderDayOfWeek = order.getOrderDayOfWeek();
+        if(WEEKENDS.contains(orderDayOfWeek)){
+            List<OrderMenu> orderMenus = order.getOrderMenus();
+            weekdayEventAmount+=getWeekendEventAmount(orderMenus);
+        }
+        totalPromotionAmount+=weekdayEventAmount;
+        return weekdayEventAmount;
+    }
+
+    public int getWeekendEventAmount(List<OrderMenu> orderMenus){
+        int weekdayEventAmount = 0;
+        for(OrderMenu menu:orderMenus){
+            if(menu.getChristmasMenu()==ChristmasMenu.MAIN){
+                weekdayEventAmount+=2023*menu.getOrderMenuCount();
+            }
+        }
+        return weekdayEventAmount;
+    }
 }
