@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,5 +14,11 @@ public class ChristmasPromotion {
         this.orderHistory = orderHistory;
         this.promotionResult = new ArrayList<>();
         this.totalPromotionAmount = 0;
+    }
+
+    public void addChristmasDDayEvent(LocalDate localDate){
+        int day = localDate.getDayOfMonth();
+        int ddayPromotionAmount = 1000+100*(day-1);
+        totalPromotionAmount+=ddayPromotionAmount;
     }
 }
