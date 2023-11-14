@@ -56,4 +56,8 @@ public class Order implements ChristmasConsts {
     public int getTotalOrderAmount(){
         return totalOrderAmount;
     }
+
+    public LocalDate getOrderDate(){
+        return orderDate;
+    }
 }

@@ -21,4 +21,8 @@ public class ChristmasPromotion {
         int ddayPromotionAmount = 1000+100*(day-1);
         totalPromotionAmount+=ddayPromotionAmount;
     }
+
+    public int getTotalPromotionAmount(){
+        return totalPromotionAmount;
+    }
 }
