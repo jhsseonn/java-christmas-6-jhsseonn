@@ -13,4 +13,16 @@ public class OrderMenu {
         this.menu = menu;
         this.orderMenuCount = orderMenuCount;
     }
+
+    public ChristmasMenu getChristmasMenu(){
+        return this.christmasMenu;
+    }
+
+    public String getMenu(){
+        return this.menu;
+    }
+
+    public int getOrderMenuCount(){
+        return this.orderMenuCount;
+    }
 }
