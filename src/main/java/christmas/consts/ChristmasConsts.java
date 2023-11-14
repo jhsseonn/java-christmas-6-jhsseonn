@@ -1,7 +1,10 @@
 package christmas.consts;
 
+import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 public interface ChristmasConsts {
     HashMap<String, Integer> APPETIZERS = new HashMap<>(){{
@@ -24,6 +27,9 @@ public interface ChristmasConsts {
         put("레드와인",60000);
         put("샴페인",25000);
     }};
+    List<DayOfWeek> WEEKDAYS = new ArrayList<>(
+            List.of(DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY)
+    );
     int DECEMBER_EVENT_BADGE_STAR_AMOUNT = 5000;
     int DECEMBER_EVENT_BADGE_TREE_AMOUNT = 10000;
     int DECEMBER_EVENT_BADGE_SANTA_AMOUNT = 20000;

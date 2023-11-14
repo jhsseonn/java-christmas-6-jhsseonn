@@ -60,4 +60,8 @@ public class Order implements ChristmasConsts {
     public LocalDate getOrderDate(){
         return orderDate;
     }
+
+    public DayOfWeek getOrderDayOfWeek(){
+        return orderDayOfWeek;
+    }
 }
