@@ -9,6 +9,15 @@ import java.util.List;
 
 public class ChristmasService {
 
+    public HashMap<String, Integer> getTotalOrderMenu(Order order){
+        List<OrderMenu> orderMenus = order.getOrderMenus();
+        HashMap<String, Integer> orderMenuPreview = new HashMap<>();
+        for(OrderMenu orderMenu:orderMenus){
+            orderMenuPreview.put(orderMenu.getMenu(), orderMenu.getOrderMenuCount());
+        }
+        return orderMenuPreview;
+    }
+
     public void computeTotalOrderAmount(Order order){
         List<OrderMenu> orderMenus = order.getOrderMenus();
         int totalOrderAmount=0;
