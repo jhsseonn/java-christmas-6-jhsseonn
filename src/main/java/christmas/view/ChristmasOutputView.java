@@ -1,6 +1,7 @@
 package christmas.view;
 
 import christmas.consts.ChristmasConsts;
+import christmas.consts.ChristmasPromotionEvents;
 import christmas.consts.DecemberEventBadge;
 
 import javax.sound.midi.SysexMessage;
@@ -31,10 +32,10 @@ public class ChristmasOutputView implements ChristmasConsts {
         System.out.println();
     }
 
-    public void printPromotionResult(HashMap<String, Integer> promotionResult){
+    public void printPromotionResult(HashMap<ChristmasPromotionEvents, Integer> promotionResult){
         System.out.println("<혜택 내역>");
         promotionResult.forEach((key, value) -> {
-            System.out.printf("%s: -%d원\n", key, value);
+            System.out.printf("%s: -%d원\n", key.getPromotionName(), value);
         });
         System.out.println();
     }

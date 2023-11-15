@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.consts.ChristmasConsts;
 import christmas.consts.ChristmasMenu;
+import christmas.consts.ChristmasPromotionEvents;
 import christmas.consts.DecemberEventBadge;
 
 import java.time.DayOfWeek;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class ChristmasPromotion implements ChristmasConsts {
     private Order orderHistory;
-    private HashMap<String, Integer> promotionResult;
+    private HashMap<ChristmasPromotionEvents, Integer> promotionResult;
     private int totalPromotionAmount;
     private DecemberEventBadge decemberEventBadge;
 
@@ -26,7 +27,7 @@ public class ChristmasPromotion implements ChristmasConsts {
         return orderHistory;
     }
 
-    public HashMap<String, Integer> getPromotionResult(){
+    public HashMap<ChristmasPromotionEvents, Integer> getPromotionResult(){
         return promotionResult;
     }
 
@@ -36,7 +37,7 @@ public class ChristmasPromotion implements ChristmasConsts {
         if (validDayForDDayEvent(localDate)){
             ddayPromotionAmount = 1000+100*(day-1);
         }
-        promotionResult.put("크리스마스 디데이 할인", ddayPromotionAmount);
+        promotionResult.put(ChristmasPromotionEvents.CHRISTMAS_DDAY_PROMOTION, ddayPromotionAmount);
     }
 
     public int getTotalPromotionAmount(){
@@ -49,7 +50,7 @@ public class ChristmasPromotion implements ChristmasConsts {
         if(WEEKDAYS.contains(orderDayOfWeek)){
             List<OrderMenu> orderMenus = order.getOrderMenus();
             weekdayEventAmount+=getWeekdayEventAmount(orderMenus);
-            promotionResult.put("평일 할인", weekdayEventAmount);
+            promotionResult.put(ChristmasPromotionEvents.WEEKDAY_PROMOTION, weekdayEventAmount);
         }
     }
 
@@ -69,7 +70,7 @@ public class ChristmasPromotion implements ChristmasConsts {
         if(WEEKENDS.contains(orderDayOfWeek)){
             List<OrderMenu> orderMenus = order.getOrderMenus();
             weekendEventAmount+=getWeekendEventAmount(orderMenus);
-            promotionResult.put("주말 할인", weekendEventAmount);
+            promotionResult.put(ChristmasPromotionEvents.WEEKEND_PROMOTION, weekendEventAmount);
         }
     }
 
@@ -90,7 +91,7 @@ public class ChristmasPromotion implements ChristmasConsts {
         DayOfWeek orderDayOfWeek = order.getOrderDayOfWeek();
         if(orderDayOfWeek.equals(DayOfWeek.SUNDAY) || orderDate==25){
             specialEventAmount+=1000;
-            promotionResult.put("특별 할인", specialEventAmount);
+            promotionResult.put(ChristmasPromotionEvents.SPECIAL_PROMOTION, specialEventAmount);
         }
     }
 
@@ -100,7 +101,7 @@ public class ChristmasPromotion implements ChristmasConsts {
         int totalOrderAmount = order.getTotalOrderAmount();
         if (totalOrderAmount>=120000){
             presentationEventAmount+=25000;
-            promotionResult.put("증정 이벤트", presentationEventAmount);
+            promotionResult.put(ChristmasPromotionEvents.PRESENTATION_PROMOTION, presentationEventAmount);
         }
     }
 
