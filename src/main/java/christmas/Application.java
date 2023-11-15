@@ -1,5 +1,6 @@
 package christmas;
 
+import christmas.consts.DecemberEventBadge;
 import christmas.domain.ChristmasPromotion;
 import christmas.domain.Order;
 import christmas.service.ChristmasService;
@@ -43,5 +44,8 @@ public class Application {
         // 할인 후 예상 결제 금액 출력하기
         int expectAmountAfterDiscount = christmasService.getExpectAmountAfterDiscount(christmasPromotion);
         christmasOutputView.printExpectAmountAfterDiscount(expectAmountAfterDiscount);
+        // 12월 이벤트 배지 출력하기
+        DecemberEventBadge decemberEventBadge = christmasPromotion.getDecemberEventBadge();
+        christmasOutputView.printDecemberEventBadge(decemberEventBadge.getDecemberEventBadge());
     }
 }

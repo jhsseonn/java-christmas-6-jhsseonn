@@ -1,6 +1,7 @@
 package christmas.view;
 
 import christmas.consts.ChristmasConsts;
+import christmas.consts.DecemberEventBadge;
 
 import javax.sound.midi.SysexMessage;
 import java.util.HashMap;
@@ -41,5 +42,10 @@ public class ChristmasOutputView implements ChristmasConsts {
     public void printExpectAmountAfterDiscount(int expectAmountAfterDiscount){
         System.out.println("<할인 후 예상 결제 금액>");
         System.out.printf("%d", expectAmountAfterDiscount);
+    }
+
+    public void printDecemberEventBadge(String decemberEventBadge){
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(decemberEventBadge);
     }
 }
