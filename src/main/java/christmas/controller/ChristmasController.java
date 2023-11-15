@@ -50,16 +50,21 @@ public class ChristmasController implements ChristmasConsts {
         List<String> orderMenus = List.of(inputOrderMenus.split(SPLIT_INPUT_STRING));
         int totalOrderMenuCount = INTEGER_RESET;
         for(String menu:orderMenus){
-            List<String> menuCount = List.of(menu.split(SPLIT_INPUT_MENU));
-            String menuName = menuCount.get(0);
-            int orderMenuCount = getValidMenuCount(menuCount.get(1));
-            isValidRangeOfMenuCount(orderMenuCount);
-            totalOrderMenuCount+=orderMenuCount;
-            final OrderMenu orderMenu = new OrderMenu(menuName, orderMenuCount);
+            OrderMenu orderMenu = computeTotalOrderCount(menu);
             createOrderMenus.add(orderMenu);
+            totalOrderMenuCount+=orderMenu.getOrderMenuCount();
         }
         isValidRangeOfMenuCount(totalOrderMenuCount);
         return createOrderMenus;
+    }
+
+    public OrderMenu computeTotalOrderCount(String menu){
+        List<String> menuCount = List.of(menu.split(SPLIT_INPUT_MENU));
+        String menuName = menuCount.get(0);
+        int orderMenuCount = getValidMenuCount(menuCount.get(1));
+        isValidRangeOfMenuCount(orderMenuCount);
+        final OrderMenu orderMenu = new OrderMenu(menuName, orderMenuCount);
+        return orderMenu;
     }
 
     public int getValidMenuCount(String menuAmount){
