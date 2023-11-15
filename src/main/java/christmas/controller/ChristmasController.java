@@ -4,19 +4,21 @@ import christmas.consts.ChristmasConsts;
 import christmas.consts.DecemberEventBadge;
 import christmas.domain.ChristmasPromotion;
 import christmas.domain.Order;
+import christmas.domain.OrderMenu;
 import christmas.exception.GlobalExceptionHandler;
 import christmas.service.ChristmasService;
 import christmas.view.ChristmasInputView;
 import christmas.view.ChristmasOutputView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ChristmasController implements ChristmasConsts {
 
     final ChristmasInputView christmasInputView = new ChristmasInputView();
     final ChristmasOutputView christmasOutputView = new ChristmasOutputView();
     final ChristmasService christmasService = new ChristmasService();
-    final GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
 
     public int getValidVisitDay(){
         int expectedVisitDay = 0;
@@ -24,7 +26,7 @@ public class ChristmasController implements ChristmasConsts {
             String inputVisitDay = christmasInputView.getExpectedVisitDay();
             expectedVisitDay = Integer.parseInt(inputVisitDay);
         } catch (NumberFormatException e) {
-            System.out.printf("%s %s", ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_DAY);
+            System.out.printf("%s %s\n", ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_DAY);
             getValidVisitDay();
         } finally {
             return expectedVisitDay;
@@ -37,8 +39,34 @@ public class ChristmasController implements ChristmasConsts {
                 throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e){
-            System.out.printf("%s %s", ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_DAY);
+            System.out.printf("%s %s\n", ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_DAY);
             getValidVisitDay();
+        }
+    }
+
+    public List<OrderMenu> getOrderMenus(){
+        String inputOrderMenus = christmasInputView.getOrderMenus();
+        List<OrderMenu> createOrderMenus = new ArrayList<>();
+        List<String> orderMenus = List.of(inputOrderMenus.split(","));
+        for(String menu:orderMenus){
+            List<String> menuCount = List.of(menu.split("-"));
+            String menuName = menuCount.get(0);
+            int menuAmount = getValidMenuCount(menuCount.get(1));
+            final OrderMenu orderMenu = new OrderMenu(menuName, menuAmount);
+            createOrderMenus.add(orderMenu);
+        }
+        return createOrderMenus;
+    }
+
+    public int getValidMenuCount(String menuAmount){
+        int menuCount = 0;
+        try {
+            menuCount = Integer.parseInt(menuAmount);
+        } catch (NumberFormatException e) {
+            System.out.printf("%s %s\n", ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
+            getOrderMenus();
+        } finally {
+            return menuCount;
         }
     }
 
@@ -50,10 +78,11 @@ public class ChristmasController implements ChristmasConsts {
         isValidRangeVisitDay(expectedVisitDay);
 
         // 주문할 메뉴와 메뉴 개수 입력받기
-        String orderMenus = christmasInputView.getOrderMenus();
+        List<OrderMenu> orderMenus = getOrderMenus();
         // 입력한 날짜, 메뉴 정보로 order, christmasPromotion 객체 생성하기
         Order order = new Order(expectedVisitDay, orderMenus);
         ChristmasPromotion christmasPromotion = new ChristmasPromotion(order);
+
         // 총 주문 메뉴 알려주기
         HashMap<String, Integer> orderMenuPreview = christmasService.getTotalOrderMenu(order);
         christmasOutputView.printOrderMenus(orderMenuPreview);
