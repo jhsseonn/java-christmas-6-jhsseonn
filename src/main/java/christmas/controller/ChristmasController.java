@@ -13,6 +13,7 @@ import christmas.view.ChristmasOutputView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class ChristmasController implements ChristmasConsts {
@@ -55,6 +56,12 @@ public class ChristmasController implements ChristmasConsts {
             isOrderMenuAlreadyExist(createOrderMenus, orderMenu.getMenu());
             createOrderMenus.add(orderMenu);
             totalOrderMenuCount+=orderMenu.getOrderMenuCount();
+        }
+        try{
+            isOrderMenusAllBeverage(createOrderMenus);
+        } catch(IllegalArgumentException e){
+            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
+            getOrderMenus();
         }
         isValidRangeOfMenuCount(totalOrderMenuCount);
         return createOrderMenus;
@@ -181,6 +188,16 @@ public class ChristmasController implements ChristmasConsts {
     public void printDecemberEventBadge(ChristmasPromotion christmasPromotion){
         DecemberEventBadge decemberEventBadge = christmasPromotion.getDecemberEventBadge();
         christmasOutputView.printDecemberEventBadge(decemberEventBadge.getDecemberEventBadge());
+    }
+
+    public void isOrderMenusAllBeverage(List<OrderMenu> orderMenus) throws IllegalArgumentException{
+        HashSet<ChristmasMenu> christmasMenus = new HashSet<>();
+        for(OrderMenu orderMenu:orderMenus){
+            christmasMenus.add(orderMenu.getChristmasMenu());
+        }
+        if (christmasMenus.size()==1 && christmasMenus.contains(ChristmasMenu.BEVERAGE)){
+            throw new IllegalArgumentException();
+        }
     }
 
     public void runPromotion(){
