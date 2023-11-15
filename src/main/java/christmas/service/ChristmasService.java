@@ -1,7 +1,5 @@
 package christmas.service;
 
-import christmas.consts.ChristmasMenu;
-import christmas.consts.DecemberEventBadge;
 import christmas.domain.ChristmasPromotion;
 import christmas.domain.Order;
 import christmas.domain.OrderMenu;
