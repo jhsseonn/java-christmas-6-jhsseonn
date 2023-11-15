@@ -72,4 +72,15 @@ public class ChristmasPromotion implements ChristmasConsts {
         }
         return weekdayEventAmount;
     }
+
+    public int addSpecialEvent(Order order){
+        int specialEventAmount = 0;
+        int orderDate = order.getOrderDate().getDayOfMonth();
+        DayOfWeek orderDayOfWeek = order.getOrderDayOfWeek();
+        if(orderDayOfWeek.equals(DayOfWeek.SUNDAY) || orderDate==25){
+            specialEventAmount+=1000;
+            totalPromotionAmount+=1000;
+        }
+        return specialEventAmount;
+    }
 }

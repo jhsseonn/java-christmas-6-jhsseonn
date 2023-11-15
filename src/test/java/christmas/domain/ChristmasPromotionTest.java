@@ -11,7 +11,7 @@ class ChristmasPromotionTest {
     public ChristmasPromotion christmasPromotion;
     @BeforeEach
     void 유효한_order_생성(){
-        orderHistory = new Order(2, "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
+        orderHistory = new Order(3, "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
         christmasPromotion = new ChristmasPromotion(orderHistory);
     }
     @Test
@@ -33,5 +33,12 @@ class ChristmasPromotionTest {
         int weekendEventAmount = christmasPromotion.addWeekEndEvent(orderHistory);
         assertThat(weekendEventAmount).isEqualTo(4046);
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(4046);
+    }
+
+    @Test
+    void 특별_할인_이벤트_추가(){
+        int specialEventAmount = christmasPromotion.addSpecialEvent(orderHistory);
+        assertThat(specialEventAmount).isEqualTo(1000);
+        assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(1000);
     }
 }
