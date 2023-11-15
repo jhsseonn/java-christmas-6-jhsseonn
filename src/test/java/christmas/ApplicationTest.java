@@ -81,6 +81,14 @@ class ApplicationTest extends NsTest {
         });
     }
 
+    @Test
+    void 주문_메뉴에_음료만_있는_경우_예외처리_테스트(){
+        assertSimpleTest(() -> {
+            runException("3", "제로콜라-2,레드와인-2");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
     @Override
     protected void runMain() {
         Application.main(new String[]{});
