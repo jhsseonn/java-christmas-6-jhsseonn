@@ -12,6 +12,10 @@ public class ChristmasOutputView implements ChristmasConsts {
         System.out.println(DECEMBER_EVENT_WELCOME);
     }
 
+    public void printChristmasPromotionPreview(int orderDay){
+        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n\n", orderDay);
+    }
+
     public void printOrderMenus(HashMap<String, Integer> orderMenuPreview){
         System.out.println("<주문 메뉴>");
         orderMenuPreview.forEach((key, value) -> {

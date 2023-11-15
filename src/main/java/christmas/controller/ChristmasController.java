@@ -129,6 +129,7 @@ public class ChristmasController implements ChristmasConsts {
         List<OrderMenu> orderMenus = getOrderMenus();
         Order order = new Order(expectedVisitDay, orderMenus);
         ChristmasPromotion christmasPromotion = new ChristmasPromotion(order);
+        christmasOutputView.printChristmasPromotionPreview(expectedVisitDay);
 
         printDecemberEventPlanner(order, christmasPromotion);
         printExpectAmountAfterDiscount(christmasPromotion);
