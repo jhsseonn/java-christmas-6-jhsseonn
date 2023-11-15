@@ -51,6 +51,7 @@ public class ChristmasController implements ChristmasConsts {
         List<String> orderMenus = List.of(inputOrderMenus.split(SPLIT_INPUT_STRING));
         int totalOrderMenuCount = INTEGER_RESET;
         for(String menu:orderMenus){
+            isOrderMenuAlreadyExist(createOrderMenus, menu);
             OrderMenu orderMenu = getOrderMenu(menu);
             createOrderMenus.add(orderMenu);
             totalOrderMenuCount+=orderMenu.getOrderMenuCount();
@@ -87,6 +88,21 @@ public class ChristmasController implements ChristmasConsts {
                 throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e){
+            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
+            getOrderMenus();
+        }
+    }
+
+    public void isOrderMenuAlreadyExist(List<OrderMenu> orderMenus, String menu){
+        List<String> orderMenuNames = new ArrayList<>();
+        for(OrderMenu orderMenu:orderMenus){
+           orderMenuNames.add(orderMenu.getMenu());
+        }
+        try {
+            if (orderMenuNames.contains(menu)){
+                throw new IllegalArgumentException();
+            }
+        } catch(IllegalArgumentException e){
             System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
             getOrderMenus();
         }
