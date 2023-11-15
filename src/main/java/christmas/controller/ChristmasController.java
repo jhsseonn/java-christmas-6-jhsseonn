@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.consts.ChristmasConsts;
+import christmas.consts.ChristmasPromotionEvents;
 import christmas.consts.DecemberEventBadge;
 import christmas.domain.ChristmasPromotion;
 import christmas.domain.Order;
@@ -92,7 +93,7 @@ public class ChristmasController implements ChristmasConsts {
         // 이벤트 계산하기
         christmasService.confirmEvents(christmasPromotion);
         // 증정 메뉴 출력하기
-        if (christmasPromotion.getPromotionResult().containsKey("증정 이벤트")){
+        if (christmasPromotion.getPromotionResult().containsKey(ChristmasPromotionEvents.PRESENTATION_PROMOTION)){
             christmasOutputView.printPresentationEventMenu();
         }
         // 혜택 내역 및 총 혜택 금액 출력하기
