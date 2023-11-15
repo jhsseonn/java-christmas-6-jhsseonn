@@ -37,10 +37,14 @@ public class Application {
         if (christmasPromotion.getPromotionResult().containsKey("증정 이벤트")){
             christmasOutputView.printPresentationEventMenu();
         }
-        // 혜택 내역 출력하기
-        christmasOutputView.printPromotionResult(christmasPromotion.getPromotionResult());
-        // 총 혜택 금액 출력하기
-        christmasOutputView.printTotalPromotionAmount(christmasPromotion.getTotalPromotionAmount());
+        // 혜택 내역 및 총 혜택 금액 출력하기
+        if (christmasPromotion.getTotalPromotionAmount()!=0){
+            christmasOutputView.printPromotionResult(christmasPromotion.getPromotionResult());
+            christmasOutputView.printTotalPromotionAmount(christmasPromotion.getTotalPromotionAmount());
+        } else if (christmasPromotion.getTotalPromotionAmount()==0){
+            christmasOutputView.printPromotionResultNone();
+            christmasOutputView.printTotalPromotionAmountNone();
+        }
         // 할인 후 예상 결제 금액 출력하기
         int expectAmountAfterDiscount = christmasService.getExpectAmountAfterDiscount(christmasPromotion);
         christmasOutputView.printExpectAmountAfterDiscount(expectAmountAfterDiscount);
