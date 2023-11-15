@@ -1,6 +1,7 @@
 package christmas.service;
 
 import christmas.consts.ChristmasConsts;
+import christmas.consts.ChristmasPromotionEvents;
 import christmas.domain.ChristmasPromotion;
 import christmas.domain.Order;
 import christmas.domain.OrderMenu;
@@ -33,6 +34,9 @@ public class ChristmasService implements ChristmasConsts {
     public int getExpectAmountAfterDiscount(ChristmasPromotion christmasPromotion){
         int totalDiscountAmount = christmasPromotion.getTotalPromotionAmount();
         int totalOrderAmount = christmasPromotion.getOrderHistory().getTotalOrderAmount();
+        if (christmasPromotion.getPromotionResult().containsKey(ChristmasPromotionEvents.PRESENTATION_PROMOTION)){
+            totalDiscountAmount-= 25000;
+        }
         return totalOrderAmount-totalDiscountAmount;
     }
 }

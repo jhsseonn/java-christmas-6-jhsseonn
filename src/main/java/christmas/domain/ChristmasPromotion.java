@@ -107,9 +107,7 @@ public class ChristmasPromotion implements ChristmasConsts {
 
     public void updateTotalPromotionAmount(){
         promotionResult.forEach((key, value) -> {
-            if (key!=ChristmasPromotionEvents.PRESENTATION_PROMOTION){
-                totalPromotionAmount+=value;
-            }
+            totalPromotionAmount+=value;
         });
     }
 
