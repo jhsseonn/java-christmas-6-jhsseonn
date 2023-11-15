@@ -8,6 +8,7 @@ import christmas.domain.ChristmasPromotion;
 import christmas.domain.Order;
 import christmas.domain.OrderMenu;
 import christmas.service.ChristmasService;
+import christmas.util.ChristmasUtil;
 import christmas.view.ChristmasInputView;
 import christmas.view.ChristmasOutputView;
 
@@ -21,6 +22,7 @@ public class ChristmasController implements ChristmasConsts {
     final ChristmasInputView christmasInputView = new ChristmasInputView();
     final ChristmasOutputView christmasOutputView = new ChristmasOutputView();
     final ChristmasService christmasService = new ChristmasService();
+    final ChristmasUtil christmasUtil = new ChristmasUtil();
 
     public void runPromotion(){
         christmasOutputView.printWelcome();
@@ -147,7 +149,7 @@ public class ChristmasController implements ChristmasConsts {
     }
 
     public void validateInputSplit(String input) throws IllegalArgumentException{
-        if(!input.contains(SPLIT_INPUT_STRING)){
+        if(!input.contains(SPLIT_INPUT_STRING) && christmasUtil.countChar(input, '-')!=1){
             throw new IllegalArgumentException();
         }
     }
