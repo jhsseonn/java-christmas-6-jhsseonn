@@ -6,7 +6,6 @@ import christmas.consts.DecemberEventBadge;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,6 +24,10 @@ public class ChristmasPromotion implements ChristmasConsts {
 
     public Order getOrderHistory(){
         return orderHistory;
+    }
+
+    public HashMap<String, Integer> getPromotionResult(){
+        return promotionResult;
     }
 
     public void addChristmasDDayEvent(LocalDate localDate){
