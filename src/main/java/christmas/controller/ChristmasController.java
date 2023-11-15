@@ -51,8 +51,8 @@ public class ChristmasController implements ChristmasConsts {
         List<String> orderMenus = List.of(inputOrderMenus.split(SPLIT_INPUT_STRING));
         int totalOrderMenuCount = INTEGER_RESET;
         for(String menu:orderMenus){
-            isOrderMenuAlreadyExist(createOrderMenus, menu);
             OrderMenu orderMenu = getOrderMenu(menu);
+            isOrderMenuAlreadyExist(createOrderMenus, orderMenu.getMenu());
             createOrderMenus.add(orderMenu);
             totalOrderMenuCount+=orderMenu.getOrderMenuCount();
         }
