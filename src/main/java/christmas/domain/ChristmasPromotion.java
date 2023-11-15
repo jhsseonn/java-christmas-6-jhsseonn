@@ -32,7 +32,10 @@ public class ChristmasPromotion implements ChristmasConsts {
 
     public void addChristmasDDayEvent(LocalDate localDate){
         final int day = localDate.getDayOfMonth();
-        final int ddayPromotionAmount = 1000+100*(day-1);
+        int ddayPromotionAmount = 0;
+        if (validDayForDDayEvent(localDate)){
+            ddayPromotionAmount = 1000+100*(day-1);
+        }
         promotionResult.put("크리스마스 디데이 할인", ddayPromotionAmount);
     }
 
@@ -119,5 +122,12 @@ public class ChristmasPromotion implements ChristmasConsts {
 
     public DecemberEventBadge getDecemberEventBadge(){
         return decemberEventBadge;
+    }
+
+    public boolean validDayForDDayEvent(LocalDate orderDate){
+        if(orderDate.getDayOfMonth()>25){
+            return false;
+        }
+        return true;
     }
 }
