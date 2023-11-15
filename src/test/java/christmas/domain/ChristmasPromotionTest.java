@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.consts.DecemberEventBadge;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,5 +48,18 @@ class ChristmasPromotionTest {
         int presentationEventAmount = christmasPromotion.addPresentationEvent(orderHistory);
         assertThat(presentationEventAmount).isEqualTo(25000);
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(25000);
+    }
+
+    @Test
+    void 총_혜택_금액으로_배지_부여하기(){
+        int totalPromotionAmount = christmasPromotion.addChristmasDDayEvent(orderHistory.getOrderDate());
+        totalPromotionAmount+=christmasPromotion.addWeekDayEvent(orderHistory);
+        totalPromotionAmount+=christmasPromotion.addWeekEndEvent(orderHistory);
+        totalPromotionAmount+=christmasPromotion.addSpecialEvent(orderHistory);
+        totalPromotionAmount+=christmasPromotion.addPresentationEvent(orderHistory);
+        christmasPromotion.updateDecemberEventBadge();
+        DecemberEventBadge result = christmasPromotion.getDecemberEventBadge();
+        assertThat(totalPromotionAmount).isEqualTo(31246);
+        assertThat(result).isEqualTo(DecemberEventBadge.SANTA);
     }
 }
