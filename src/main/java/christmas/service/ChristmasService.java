@@ -29,4 +29,10 @@ public class ChristmasService {
         christmasPromotion.addPresentationEvent(orderHistory);
         christmasPromotion.updateDecemberEventBadge();
     }
+
+    public int getExpectAmountAfterDiscount(ChristmasPromotion christmasPromotion){
+        int totalDiscountAmount = christmasPromotion.getTotalPromotionAmount();
+        int totalOrderAmount = christmasPromotion.getOrderHistory().getTotalOrderAmount();
+        return totalOrderAmount-totalDiscountAmount;
+    }
 }
