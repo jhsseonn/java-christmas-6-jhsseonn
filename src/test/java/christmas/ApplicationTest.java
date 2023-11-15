@@ -53,7 +53,15 @@ class ApplicationTest extends NsTest {
     void 메뉴_개수가_20개_초과시_주문_불가() {
         assertSimpleTest(() -> {
             runException("3", "제로콜라-21");
-            assertThat(output()).contains("유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    void 메뉴판에_없는_메뉴_입력시_예외처리_테스트(){
+        assertSimpleTest(() -> {
+            runException("3", "떡볶이-2");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         });
     }
 
