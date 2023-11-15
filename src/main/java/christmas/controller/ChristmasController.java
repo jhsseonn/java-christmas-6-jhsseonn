@@ -37,22 +37,10 @@ public class ChristmasController implements ChristmasConsts {
         printDecemberEventBadge(christmasPromotion);
     }
 
-    public int getValidVisitDay(){
-        int expectedVisitDay = INTEGER_RESET;
-        try {
-            String inputVisitDay = christmasInputView.getExpectedVisitDay();
-            expectedVisitDay = Integer.parseInt(inputVisitDay);
-        } catch (NumberFormatException e) {
-            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_DAY);
-            getValidVisitDay();
-        } finally {
-            return expectedVisitDay;
-        }
-    }
-
     public List<OrderMenu> getOrderMenus(){
         List<OrderMenu> createOrderMenus = new ArrayList<>();
-        List<String> orderMenus = getInputOrderMenus();
+        String inputOrderMenus = christmasInputView.getOrderMenus();
+        List<String> orderMenus = christmasService.getInputOrderMenus(inputOrderMenus);
         try{
             for(String menu:orderMenus){
                 OrderMenu orderMenu = getOrderMenu(menu);
@@ -67,13 +55,6 @@ public class ChristmasController implements ChristmasConsts {
         return createOrderMenus;
     }
 
-    public List<String> getInputOrderMenus() throws IllegalArgumentException{
-        String inputOrderMenus = christmasInputView.getOrderMenus();
-        validateInputSplit(inputOrderMenus);
-        List<String> orderMenus = List.of(inputOrderMenus.split(SPLIT_INPUT_STRING));
-        return orderMenus;
-    }
-
     public OrderMenu getOrderMenu(String menu){
         isValidMenuFormat(menu);
         List<String> menuCount = List.of(menu.split(SPLIT_INPUT_MENU));
@@ -86,8 +67,17 @@ public class ChristmasController implements ChristmasConsts {
     }
 
     public int getExpectVisitDate(){
-        int expectedVisitDay = getValidVisitDay();
-        isValidRangeVisitDay(expectedVisitDay);
+        String inputVisitDay = christmasInputView.getExpectedVisitDay();
+        int expectedVisitDay = INTEGER_RESET;
+        try{
+            expectedVisitDay = christmasService.getExpectedVisitDay(inputVisitDay);
+        } catch(NumberFormatException e){
+            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_DAY);
+            getExpectVisitDate();
+        } catch(IllegalArgumentException e){
+            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_DAY);
+            getExpectVisitDate();
+        }
         return expectedVisitDay;
     }
 
@@ -135,23 +125,6 @@ public class ChristmasController implements ChristmasConsts {
     public void printDecemberEventBadge(ChristmasPromotion christmasPromotion){
         DecemberEventBadge decemberEventBadge = christmasPromotion.getDecemberEventBadge();
         christmasOutputView.printDecemberEventBadge(decemberEventBadge.getDecemberEventBadge());
-    }
-
-    public void isValidRangeVisitDay(int inputDay){
-        try{
-            if (inputDay<EVENT_START_DAY || inputDay>EVENT_END_DAY){
-                throw new IllegalArgumentException();
-            }
-        } catch (IllegalArgumentException e){
-            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_DAY);
-            getValidVisitDay();
-        }
-    }
-
-    public void validateInputSplit(String input) throws IllegalArgumentException{
-        if(!input.contains(SPLIT_INPUT_STRING) && christmasUtil.countChar(input, '-')!=1){
-            throw new IllegalArgumentException();
-        }
     }
 
     public void isValidMenuFormat(String menu){
