@@ -35,7 +35,7 @@ public class ChristmasService implements ChristmasConsts {
         int totalDiscountAmount = christmasPromotion.getTotalPromotionAmount();
         int totalOrderAmount = christmasPromotion.getOrderHistory().getTotalOrderAmount();
         if (christmasPromotion.getPromotionResult().containsKey(ChristmasPromotionEvents.PRESENTATION_PROMOTION)){
-            totalDiscountAmount-= 25000;
+            totalDiscountAmount-= CHAMPAGNE_AMOUNT;
         }
         return totalOrderAmount-totalDiscountAmount;
     }

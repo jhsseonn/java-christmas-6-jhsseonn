@@ -5,7 +5,6 @@ import christmas.consts.ChristmasMenu;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements ChristmasConsts {
@@ -20,7 +19,7 @@ public class Order implements ChristmasConsts {
         this.orderDate = orderDate;
         this.orderDayOfWeek = orderDayOfWeek;
         updateOrderMenus(orderMenus);
-        this.totalOrderAmount = 0;
+        this.totalOrderAmount = INTEGER_RESET;
     }
 
     public LocalDate updateOrderDate(int expectedVisitDay){
@@ -59,7 +58,7 @@ public class Order implements ChristmasConsts {
 
     public void computeTotalOrderAmount() {
         List<OrderMenu> orderMenus = getOrderMenus();
-        int totalOrderAmount = 0;
+        int totalOrderAmount = INTEGER_RESET;
         for (OrderMenu menu : orderMenus) {
             ChristmasMenu christmasMenu = menu.getChristmasMenu();
             String menuName = menu.getMenu();

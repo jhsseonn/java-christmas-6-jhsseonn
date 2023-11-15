@@ -1,11 +1,11 @@
 package christmas.consts;
 
-public enum ChristmasPromotionEvents {
-    CHRISTMAS_DDAY_PROMOTION("크리스마스 디데이 할인"),
-    WEEKDAY_PROMOTION("평일 할인"),
-    WEEKEND_PROMOTION("주말 할인"),
-    SPECIAL_PROMOTION("특별 할인"),
-    PRESENTATION_PROMOTION("증정 이벤트");
+public enum ChristmasPromotionEvents implements ChristmasConsts{
+    CHRISTMAS_DDAY_PROMOTION(PROMOTION_NAME_CHRISTMAS_DDAY),
+    WEEKDAY_PROMOTION(PROMOTION_NAME_WEEKDAY),
+    WEEKEND_PROMOTION(PROMOTION_NAME_WEEKEND),
+    SPECIAL_PROMOTION(PROMOTION_NAME_SPECIAL),
+    PRESENTATION_PROMOTION(PROMOTION_NAME_PRESENTATION);
 
     private String promotionName;
 

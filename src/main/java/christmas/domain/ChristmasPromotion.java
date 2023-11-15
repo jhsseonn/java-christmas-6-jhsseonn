@@ -19,7 +19,7 @@ public class ChristmasPromotion implements ChristmasConsts {
     public ChristmasPromotion(Order orderHistory){
         this.orderHistory = orderHistory;
         this.promotionResult = new HashMap<>();
-        this.totalPromotionAmount = 0;
+        this.totalPromotionAmount = INTEGER_RESET;
         this.decemberEventBadge = DecemberEventBadge.NONE;
     }
 
@@ -33,9 +33,9 @@ public class ChristmasPromotion implements ChristmasConsts {
 
     public void addChristmasDDayEvent(LocalDate localDate){
         final int day = localDate.getDayOfMonth();
-        int ddayPromotionAmount = 0;
+        int ddayPromotionAmount = INTEGER_RESET;
         if (validDayForDDayEvent(localDate)){
-            ddayPromotionAmount = 1000+100*(day-1);
+            ddayPromotionAmount = DDAY_PROMOTION_START_DISCOUNT+DDAY_PROMOTION_DAY_DISCOUNT*(day-1);
         }
         promotionResult.put(ChristmasPromotionEvents.CHRISTMAS_DDAY_PROMOTION, ddayPromotionAmount);
     }
@@ -45,7 +45,7 @@ public class ChristmasPromotion implements ChristmasConsts {
     }
 
     public void addWeekDayEvent(Order order){
-        int weekdayEventAmount = 0;
+        int weekdayEventAmount = INTEGER_RESET;
         DayOfWeek orderDayOfWeek = order.getOrderDayOfWeek();
         if(WEEKDAYS.contains(orderDayOfWeek)){
             List<OrderMenu> orderMenus = order.getOrderMenus();
@@ -55,17 +55,17 @@ public class ChristmasPromotion implements ChristmasConsts {
     }
 
     public int getWeekdayEventAmount(List<OrderMenu> orderMenus){
-        int weekdayEventAmount = 0;
+        int weekdayEventAmount = INTEGER_RESET;
         for(OrderMenu menu:orderMenus){
             if(menu.getChristmasMenu()==ChristmasMenu.DESSERT){
-                weekdayEventAmount+=2023*menu.getOrderMenuCount();
+                weekdayEventAmount+=WEEKDAY_AND_WEEKEND_DISCOUNT*menu.getOrderMenuCount();
             }
         }
         return weekdayEventAmount;
     }
 
     public void addWeekEndEvent(Order order){
-        int weekendEventAmount = 0;
+        int weekendEventAmount = INTEGER_RESET;
         DayOfWeek orderDayOfWeek = order.getOrderDayOfWeek();
         if(WEEKENDS.contains(orderDayOfWeek)){
             List<OrderMenu> orderMenus = order.getOrderMenus();
@@ -75,10 +75,10 @@ public class ChristmasPromotion implements ChristmasConsts {
     }
 
     public int getWeekendEventAmount(List<OrderMenu> orderMenus){
-        int weekdayEventAmount = 0;
+        int weekdayEventAmount = INTEGER_RESET;
         for(OrderMenu menu:orderMenus){
             if(menu.getChristmasMenu()==ChristmasMenu.MAIN){
-                weekdayEventAmount+=2023*menu.getOrderMenuCount();
+                weekdayEventAmount+=WEEKDAY_AND_WEEKEND_DISCOUNT*menu.getOrderMenuCount();
             }
         }
 
@@ -86,21 +86,21 @@ public class ChristmasPromotion implements ChristmasConsts {
     }
 
     public void addSpecialEvent(Order order){
-        int specialEventAmount = 0;
+        int specialEventAmount = INTEGER_RESET;
         int orderDate = order.getOrderDate().getDayOfMonth();
         DayOfWeek orderDayOfWeek = order.getOrderDayOfWeek();
-        if(orderDayOfWeek.equals(DayOfWeek.SUNDAY) || orderDate==25){
-            specialEventAmount+=1000;
+        if(orderDayOfWeek.equals(DayOfWeek.SUNDAY) || orderDate==CHRISTMAS){
+            specialEventAmount+=SPECIAL_EVENT_DISCOUNT;
             promotionResult.put(ChristmasPromotionEvents.SPECIAL_PROMOTION, specialEventAmount);
         }
     }
 
     public void addPresentationEvent(Order order){
-        int presentationEventAmount = 0;
+        int presentationEventAmount = INTEGER_RESET;
         order.computeTotalOrderAmount();
         int totalOrderAmount = order.getTotalOrderAmount();
-        if (totalOrderAmount>=120000){
-            presentationEventAmount+=25000;
+        if (totalOrderAmount>=PRESENTATION_DISCOUNT_AMOUNT){
+            presentationEventAmount+=CHAMPAGNE_AMOUNT;
             promotionResult.put(ChristmasPromotionEvents.PRESENTATION_PROMOTION, presentationEventAmount);
         }
     }
@@ -112,13 +112,13 @@ public class ChristmasPromotion implements ChristmasConsts {
     }
 
     public void updateDecemberEventBadge(){
-        if (totalPromotionAmount>=20000){
+        if (totalPromotionAmount>=DECEMBER_EVENT_BADGE_SANTA_AMOUNT){
             decemberEventBadge=DecemberEventBadge.SANTA;
-        } else if (totalPromotionAmount>=10000){
+        } else if (totalPromotionAmount>=DECEMBER_EVENT_BADGE_TREE_AMOUNT){
             decemberEventBadge=DecemberEventBadge.TREE;
-        } else if (totalPromotionAmount>=5000){
+        } else if (totalPromotionAmount>=DECEMBER_EVENT_BADGE_STAR_AMOUNT){
             decemberEventBadge=DecemberEventBadge.STAR;
-        } else if (totalPromotionAmount<5000){
+        } else if (totalPromotionAmount<DECEMBER_EVENT_BADGE_STAR_AMOUNT){
             decemberEventBadge=DecemberEventBadge.NONE;
         }
     }
@@ -128,7 +128,7 @@ public class ChristmasPromotion implements ChristmasConsts {
     }
 
     public boolean validDayForDDayEvent(LocalDate orderDate){
-        if(orderDate.getDayOfMonth()>25){
+        if(orderDate.getDayOfMonth()>CHRISTMAS){
             return false;
         }
         return true;
