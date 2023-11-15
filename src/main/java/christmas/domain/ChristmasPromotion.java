@@ -12,37 +12,39 @@ import java.util.List;
 
 public class ChristmasPromotion implements ChristmasConsts {
     private Order orderHistory;
-    private List<HashMap<String, Integer>> promotionResult;
+    private HashMap<String, Integer> promotionResult;
     private int totalPromotionAmount;
     private DecemberEventBadge decemberEventBadge;
 
     public ChristmasPromotion(Order orderHistory){
         this.orderHistory = orderHistory;
-        this.promotionResult = new ArrayList<>();
+        this.promotionResult = new HashMap<>();
         this.totalPromotionAmount = 0;
         this.decemberEventBadge = DecemberEventBadge.NONE;
     }
 
-    public int addChristmasDDayEvent(LocalDate localDate){
+    public Order getOrderHistory(){
+        return orderHistory;
+    }
+
+    public void addChristmasDDayEvent(LocalDate localDate){
         final int day = localDate.getDayOfMonth();
         final int ddayPromotionAmount = 1000+100*(day-1);
-        totalPromotionAmount+=ddayPromotionAmount;
-        return ddayPromotionAmount;
+        promotionResult.put("ChristmasDDayEvent", ddayPromotionAmount);
     }
 
     public int getTotalPromotionAmount(){
         return totalPromotionAmount;
     }
 
-    public int addWeekDayEvent(Order order){
+    public void addWeekDayEvent(Order order){
         int weekdayEventAmount = 0;
         DayOfWeek orderDayOfWeek = order.getOrderDayOfWeek();
         if(WEEKDAYS.contains(orderDayOfWeek)){
             List<OrderMenu> orderMenus = order.getOrderMenus();
             weekdayEventAmount+=getWeekdayEventAmount(orderMenus);
+            promotionResult.put("WeedDayEvent", weekdayEventAmount);
         }
-        totalPromotionAmount+=weekdayEventAmount;
-        return weekdayEventAmount;
     }
 
     public int getWeekdayEventAmount(List<OrderMenu> orderMenus){
@@ -55,15 +57,14 @@ public class ChristmasPromotion implements ChristmasConsts {
         return weekdayEventAmount;
     }
 
-    public int addWeekEndEvent(Order order){
-        int weekdayEventAmount = 0;
+    public void addWeekEndEvent(Order order){
+        int weekendEventAmount = 0;
         DayOfWeek orderDayOfWeek = order.getOrderDayOfWeek();
         if(WEEKENDS.contains(orderDayOfWeek)){
             List<OrderMenu> orderMenus = order.getOrderMenus();
-            weekdayEventAmount+=getWeekendEventAmount(orderMenus);
+            weekendEventAmount+=getWeekendEventAmount(orderMenus);
+            promotionResult.put("WeedEndEvent", weekendEventAmount);
         }
-        totalPromotionAmount+=weekdayEventAmount;
-        return weekdayEventAmount;
     }
 
     public int getWeekendEventAmount(List<OrderMenu> orderMenus){
@@ -73,29 +74,34 @@ public class ChristmasPromotion implements ChristmasConsts {
                 weekdayEventAmount+=2023*menu.getOrderMenuCount();
             }
         }
+
         return weekdayEventAmount;
     }
 
-    public int addSpecialEvent(Order order){
+    public void addSpecialEvent(Order order){
         int specialEventAmount = 0;
         int orderDate = order.getOrderDate().getDayOfMonth();
         DayOfWeek orderDayOfWeek = order.getOrderDayOfWeek();
         if(orderDayOfWeek.equals(DayOfWeek.SUNDAY) || orderDate==25){
             specialEventAmount+=1000;
-            totalPromotionAmount+=1000;
+            promotionResult.put("SpecialEvent", specialEventAmount);
         }
-        return specialEventAmount;
     }
 
-    public int addPresentationEvent(Order order){
+    public void addPresentationEvent(Order order){
         int presentationEventAmount = 0;
         order.computeTotalOrderAmount();
         int totalOrderAmount = order.getTotalOrderAmount();
         if (totalOrderAmount>=120000){
             presentationEventAmount+=25000;
-            totalPromotionAmount+=25000;
+            promotionResult.put("PresentationEvent", presentationEventAmount);
         }
-        return presentationEventAmount;
+    }
+
+    public void updateTotalPromotionAmount(){
+        promotionResult.forEach((key, value) -> {
+            totalPromotionAmount+=value;
+        });
     }
 
     public void updateDecemberEventBadge(){

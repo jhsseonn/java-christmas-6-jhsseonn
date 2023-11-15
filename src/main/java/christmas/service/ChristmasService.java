@@ -1,6 +1,8 @@
 package christmas.service;
 
 import christmas.consts.ChristmasMenu;
+import christmas.consts.DecemberEventBadge;
+import christmas.domain.ChristmasPromotion;
 import christmas.domain.Order;
 import christmas.domain.OrderMenu;
 
@@ -18,15 +20,13 @@ public class ChristmasService {
         return orderMenuPreview;
     }
 
-    public void computeTotalOrderAmount(Order order){
-        List<OrderMenu> orderMenus = order.getOrderMenus();
-        int totalOrderAmount=0;
-        for(OrderMenu menu:orderMenus){
-            ChristmasMenu christmasMenu = menu.getChristmasMenu();
-            String menuName = menu.getMenu();
-            int orderMenuCount = menu.getOrderMenuCount();
-            totalOrderAmount+=christmasMenu.getMenuPrice(menuName)*orderMenuCount;
-        }
-        order.updateTotalOrderAmount(totalOrderAmount);
+    public void confirmEvents(ChristmasPromotion christmasPromotion){
+        Order orderHistory = christmasPromotion.getOrderHistory();
+        christmasPromotion.addChristmasDDayEvent(orderHistory.getOrderDate());
+        christmasPromotion.addWeekDayEvent(orderHistory);
+        christmasPromotion.addWeekEndEvent(orderHistory);
+        christmasPromotion.addSpecialEvent(orderHistory);
+        christmasPromotion.addPresentationEvent(orderHistory);
+        christmasPromotion.updateDecemberEventBadge();
     }
 }

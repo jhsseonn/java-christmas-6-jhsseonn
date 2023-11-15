@@ -28,7 +28,11 @@ public class Application {
         HashMap<String, Integer> orderMenuPreview = christmasService.getTotalOrderMenu(order);
         christmasOutputView.printOrderMenus(orderMenuPreview);
         // 총 주문 금액 알려주기
-        christmasService.computeTotalOrderAmount(order);
+        order.computeTotalOrderAmount();
         christmasOutputView.printTotalOrderAmount(order.getTotalOrderAmount());
+        // 이벤트 계산하기
+        christmasService.confirmEvents(christmasPromotion);
+        // 증정 메뉴 출력하기
+
     }
 }
