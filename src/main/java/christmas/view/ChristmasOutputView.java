@@ -5,9 +5,12 @@ import christmas.consts.ChristmasPromotionEvents;
 import christmas.consts.DecemberEventBadge;
 
 import javax.sound.midi.SysexMessage;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 public class ChristmasOutputView implements ChristmasConsts {
+    DecimalFormat df = new DecimalFormat("###,###");
+
     public void printWelcome(){
         System.out.println(DECEMBER_EVENT_WELCOME);
     }
@@ -19,14 +22,14 @@ public class ChristmasOutputView implements ChristmasConsts {
     public void printOrderMenus(HashMap<String, Integer> orderMenuPreview){
         System.out.println("<주문 메뉴>");
         orderMenuPreview.forEach((key, value) -> {
-            System.out.printf("%s %d개\n", key, value);
+            System.out.printf("%s %s개\n", key, df.format(value));
         });
         System.out.println();
     }
 
     public void printTotalOrderAmount(int totalOrderAmount){
         System.out.println("<할인 전 총주문 금액>");
-        System.out.printf("%d원\n\n", totalOrderAmount);
+        System.out.printf("%s원\n\n", df.format(totalOrderAmount));
     }
 
     public void printPresentationEventMenu(){
@@ -37,8 +40,9 @@ public class ChristmasOutputView implements ChristmasConsts {
     public void printPromotionResult(HashMap<ChristmasPromotionEvents, Integer> promotionResult){
         System.out.println("<혜택 내역>");
         promotionResult.forEach((key, value) -> {
-            System.out.printf("%s: -%d원\n\n", key.getPromotionName(), value);
+            System.out.printf("%s: -%s원\n", key.getPromotionName(), df.format(value));
         });
+        System.out.println();
     }
 
     public void printPromotionResultNone(){
@@ -48,7 +52,7 @@ public class ChristmasOutputView implements ChristmasConsts {
 
     public void printTotalPromotionAmount(int totalPromotionAmount){
         System.out.println("<총혜택 금액>");
-        System.out.printf("-%d원\n\n", totalPromotionAmount);
+        System.out.printf("-%s원\n\n", df.format(totalPromotionAmount));
     }
 
     public void printTotalPromotionAmountNone(){
@@ -58,7 +62,7 @@ public class ChristmasOutputView implements ChristmasConsts {
 
     public void printExpectAmountAfterDiscount(int expectAmountAfterDiscount){
         System.out.println("<할인 후 예상 결제 금액>");
-        System.out.printf("%d원\n\n", expectAmountAfterDiscount);
+        System.out.printf("%s원\n\n", df.format(expectAmountAfterDiscount));
     }
 
     public void printDecemberEventBadge(String decemberEventBadge){
