@@ -11,8 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ChristmasPromotionTest {
 
     public Order orderHistory;
+    public Order weekendOrderHistory;
     public ChristmasPromotion christmasPromotion;
-    public List<OrderMenu> orderMenus;
 
 
     @BeforeEach
@@ -22,35 +22,41 @@ class ChristmasPromotionTest {
         final OrderMenu chocolateCake = new OrderMenu("초코케이크", 2);
         final OrderMenu zeroCoke = new OrderMenu("제로콜라", 1);
         orderHistory = new Order(3, List.of(steak, barbequeRip, chocolateCake, zeroCoke));
+        weekendOrderHistory = new Order(2, List.of(steak, barbequeRip, chocolateCake, zeroCoke));
         christmasPromotion = new ChristmasPromotion(orderHistory);
     }
     @Test
     void 크리스마스_디데이_이벤트_추가() {
         christmasPromotion.addChristmasDDayEvent(orderHistory.getOrderDate());
+        christmasPromotion.updateTotalPromotionAmount();
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(1200);
     }
 
     @Test
     void 평일_할인_이벤트_추가(){
         christmasPromotion.addWeekDayEvent(orderHistory);
+        christmasPromotion.updateTotalPromotionAmount();
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(4046);
     }
 
     @Test
     void 주말_할인_이벤트_추가(){
-        christmasPromotion.addWeekEndEvent(orderHistory);
+        christmasPromotion.addWeekEndEvent(weekendOrderHistory);
+        christmasPromotion.updateTotalPromotionAmount();
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(4046);
     }
 
     @Test
     void 특별_할인_이벤트_추가(){
         christmasPromotion.addSpecialEvent(orderHistory);
+        christmasPromotion.updateTotalPromotionAmount();
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(1000);
     }
 
     @Test
     void 증정_이벤트_추가(){
         christmasPromotion.addPresentationEvent(orderHistory);
+        christmasPromotion.updateTotalPromotionAmount();
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(25000);
     }
 
@@ -61,6 +67,7 @@ class ChristmasPromotionTest {
         christmasPromotion.addWeekEndEvent(orderHistory);
         christmasPromotion.addSpecialEvent(orderHistory);
         christmasPromotion.addPresentationEvent(orderHistory);
+        christmasPromotion.updateTotalPromotionAmount();
         christmasPromotion.updateDecemberEventBadge();
         DecemberEventBadge result = christmasPromotion.getDecemberEventBadge();
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(31246);
