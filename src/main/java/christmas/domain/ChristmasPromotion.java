@@ -83,4 +83,15 @@ public class ChristmasPromotion implements ChristmasConsts {
         }
         return specialEventAmount;
     }
+
+    public int addPresentationEvent(Order order){
+        int presentationEventAmount = 0;
+        order.computeTotalOrderAmount();
+        int totalOrderAmount = order.getTotalOrderAmount();
+        if (totalOrderAmount>=120000){
+            presentationEventAmount+=25000;
+            totalPromotionAmount+=25000;
+        }
+        return presentationEventAmount;
+    }
 }

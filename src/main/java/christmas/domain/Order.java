@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.consts.ChristmasConsts;
+import christmas.consts.ChristmasMenu;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -63,5 +64,17 @@ public class Order implements ChristmasConsts {
 
     public DayOfWeek getOrderDayOfWeek(){
         return orderDayOfWeek;
+    }
+
+    public void computeTotalOrderAmount(){
+        List<OrderMenu> orderMenus = getOrderMenus();
+        int totalOrderAmount=0;
+        for(OrderMenu menu:orderMenus){
+            ChristmasMenu christmasMenu = menu.getChristmasMenu();
+            String menuName = menu.getMenu();
+            int orderMenuCount = menu.getOrderMenuCount();
+            totalOrderAmount+=christmasMenu.getMenuPrice(menuName)*orderMenuCount;
+        }
+        updateTotalOrderAmount(totalOrderAmount);
     }
 }
