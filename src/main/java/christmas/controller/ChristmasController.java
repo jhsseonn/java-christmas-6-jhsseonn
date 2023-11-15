@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.consts.ChristmasConsts;
+import christmas.consts.ChristmasMenu;
 import christmas.consts.ChristmasPromotionEvents;
 import christmas.consts.DecemberEventBadge;
 import christmas.domain.ChristmasPromotion;
@@ -50,7 +51,7 @@ public class ChristmasController implements ChristmasConsts {
         List<String> orderMenus = List.of(inputOrderMenus.split(SPLIT_INPUT_STRING));
         int totalOrderMenuCount = INTEGER_RESET;
         for(String menu:orderMenus){
-            OrderMenu orderMenu = computeTotalOrderCount(menu);
+            OrderMenu orderMenu = getOrderMenu(menu);
             createOrderMenus.add(orderMenu);
             totalOrderMenuCount+=orderMenu.getOrderMenuCount();
         }
@@ -58,13 +59,25 @@ public class ChristmasController implements ChristmasConsts {
         return createOrderMenus;
     }
 
-    public OrderMenu computeTotalOrderCount(String menu){
+    public OrderMenu getOrderMenu(String menu){
         List<String> menuCount = List.of(menu.split(SPLIT_INPUT_MENU));
         String menuName = menuCount.get(0);
+        isMenuNameExist(menuName);
         int orderMenuCount = getValidMenuCount(menuCount.get(1));
         isValidRangeOfMenuCount(orderMenuCount);
         final OrderMenu orderMenu = new OrderMenu(menuName, orderMenuCount);
         return orderMenu;
+    }
+
+    public void isMenuNameExist(String menuName){
+        try{
+            if(ChristmasMenu.findByMenu(menuName)==ChristmasMenu.NONE){
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e){
+            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
+            getOrderMenus();
+        }
     }
 
     public int getValidMenuCount(String menuAmount){
