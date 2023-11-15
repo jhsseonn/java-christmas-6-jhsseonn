@@ -1,7 +1,5 @@
 package christmas.consts;
 
-import christmas.consts.ChristmasConsts;
-
 public enum DecemberEventBadge implements ChristmasConsts {
     STAR(DECEMBER_EVENT_BADGE_STAR_AMOUNT, BADGE_NAME_STAR),
     TREE(DECEMBER_EVENT_BADGE_TREE_AMOUNT, BADGE_NAME_TREE),
