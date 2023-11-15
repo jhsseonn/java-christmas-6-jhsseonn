@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.consts.ChristmasConsts;
 import christmas.consts.ChristmasMenu;
+import christmas.consts.DecemberEventBadge;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -13,11 +14,13 @@ public class ChristmasPromotion implements ChristmasConsts {
     private Order orderHistory;
     private List<HashMap<String, Integer>> promotionResult;
     private int totalPromotionAmount;
+    private DecemberEventBadge decemberEventBadge;
 
     public ChristmasPromotion(Order orderHistory){
         this.orderHistory = orderHistory;
         this.promotionResult = new ArrayList<>();
         this.totalPromotionAmount = 0;
+        this.decemberEventBadge = DecemberEventBadge.NONE;
     }
 
     public int addChristmasDDayEvent(LocalDate localDate){
@@ -93,5 +96,19 @@ public class ChristmasPromotion implements ChristmasConsts {
             totalPromotionAmount+=25000;
         }
         return presentationEventAmount;
+    }
+
+    public void updateDecemberEventBadge(){
+        if (totalPromotionAmount>=20000){
+            decemberEventBadge=DecemberEventBadge.SANTA;
+        } else if (totalPromotionAmount>=10000){
+            decemberEventBadge=DecemberEventBadge.TREE;
+        } else if (totalPromotionAmount>=5000){
+            decemberEventBadge=DecemberEventBadge.STAR;
+        }
+    }
+
+    public DecemberEventBadge getDecemberEventBadge(){
+        return decemberEventBadge;
     }
 }
