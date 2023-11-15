@@ -48,13 +48,17 @@ public class ChristmasController implements ChristmasConsts {
         String inputOrderMenus = christmasInputView.getOrderMenus();
         List<OrderMenu> createOrderMenus = new ArrayList<>();
         List<String> orderMenus = List.of(inputOrderMenus.split(SPLIT_INPUT_STRING));
+        int totalOrderMenuCount = INTEGER_RESET;
         for(String menu:orderMenus){
             List<String> menuCount = List.of(menu.split(SPLIT_INPUT_MENU));
             String menuName = menuCount.get(0);
-            int menuAmount = getValidMenuCount(menuCount.get(1));
-            final OrderMenu orderMenu = new OrderMenu(menuName, menuAmount);
+            int orderMenuCount = getValidMenuCount(menuCount.get(1));
+            isValidRangeOfMenuCount(orderMenuCount);
+            totalOrderMenuCount+=orderMenuCount;
+            final OrderMenu orderMenu = new OrderMenu(menuName, orderMenuCount);
             createOrderMenus.add(orderMenu);
         }
+        isValidRangeOfMenuCount(totalOrderMenuCount);
         return createOrderMenus;
     }
 
@@ -67,6 +71,17 @@ public class ChristmasController implements ChristmasConsts {
             getOrderMenus();
         } finally {
             return menuCount;
+        }
+    }
+
+    public void isValidRangeOfMenuCount(int menuCount){
+        try {
+            if (menuCount>MENU_COUNT_MAXIMUM){
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e){
+            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
+            getOrderMenus();
         }
     }
 
