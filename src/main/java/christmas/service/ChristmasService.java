@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.consts.ChristmasConsts;
 import christmas.domain.ChristmasPromotion;
 import christmas.domain.Order;
 import christmas.domain.OrderMenu;
@@ -7,7 +8,7 @@ import christmas.domain.OrderMenu;
 import java.util.HashMap;
 import java.util.List;
 
-public class ChristmasService {
+public class ChristmasService implements ChristmasConsts {
 
     public HashMap<String, Integer> getTotalOrderMenu(Order order){
         List<OrderMenu> orderMenus = order.getOrderMenus();
