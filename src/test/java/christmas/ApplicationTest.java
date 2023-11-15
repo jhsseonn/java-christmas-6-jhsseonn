@@ -49,6 +49,14 @@ class ApplicationTest extends NsTest {
         });
     }
 
+    @Test
+    void 메뉴_개수가_20개_초과시_주문_불가() {
+        assertSimpleTest(() -> {
+            runException("3", "제로콜라-21");
+            assertThat(output()).contains("유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
     @Override
     protected void runMain() {
         Application.main(new String[]{});
