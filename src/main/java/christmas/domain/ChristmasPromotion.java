@@ -33,7 +33,7 @@ public class ChristmasPromotion implements ChristmasConsts {
     public void addChristmasDDayEvent(LocalDate localDate){
         final int day = localDate.getDayOfMonth();
         final int ddayPromotionAmount = 1000+100*(day-1);
-        promotionResult.put("ChristmasDDayEvent", ddayPromotionAmount);
+        promotionResult.put("크리스마스 디데이 할인", ddayPromotionAmount);
     }
 
     public int getTotalPromotionAmount(){
@@ -46,7 +46,7 @@ public class ChristmasPromotion implements ChristmasConsts {
         if(WEEKDAYS.contains(orderDayOfWeek)){
             List<OrderMenu> orderMenus = order.getOrderMenus();
             weekdayEventAmount+=getWeekdayEventAmount(orderMenus);
-            promotionResult.put("WeedDayEvent", weekdayEventAmount);
+            promotionResult.put("평일 할인", weekdayEventAmount);
         }
     }
 
@@ -66,7 +66,7 @@ public class ChristmasPromotion implements ChristmasConsts {
         if(WEEKENDS.contains(orderDayOfWeek)){
             List<OrderMenu> orderMenus = order.getOrderMenus();
             weekendEventAmount+=getWeekendEventAmount(orderMenus);
-            promotionResult.put("WeedEndEvent", weekendEventAmount);
+            promotionResult.put("주말 할인", weekendEventAmount);
         }
     }
 
@@ -87,7 +87,7 @@ public class ChristmasPromotion implements ChristmasConsts {
         DayOfWeek orderDayOfWeek = order.getOrderDayOfWeek();
         if(orderDayOfWeek.equals(DayOfWeek.SUNDAY) || orderDate==25){
             specialEventAmount+=1000;
-            promotionResult.put("SpecialEvent", specialEventAmount);
+            promotionResult.put("특별 할인", specialEventAmount);
         }
     }
 
@@ -97,7 +97,7 @@ public class ChristmasPromotion implements ChristmasConsts {
         int totalOrderAmount = order.getTotalOrderAmount();
         if (totalOrderAmount>=120000){
             presentationEventAmount+=25000;
-            promotionResult.put("PresentationEvent", presentationEventAmount);
+            promotionResult.put("증정 이벤트", presentationEventAmount);
         }
     }
 

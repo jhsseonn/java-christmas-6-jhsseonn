@@ -33,7 +33,7 @@ public class Application {
         // 이벤트 계산하기
         christmasService.confirmEvents(christmasPromotion);
         // 증정 메뉴 출력하기
-        if (christmasPromotion.getPromotionResult().containsKey("PresentationEvent")){
+        if (christmasPromotion.getPromotionResult().containsKey("증정 이벤트")){
             christmasOutputView.printPresentationEventMenu();
         }
     }
