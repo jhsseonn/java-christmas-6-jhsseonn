@@ -36,5 +36,7 @@ public class Application {
         if (christmasPromotion.getPromotionResult().containsKey("증정 이벤트")){
             christmasOutputView.printPresentationEventMenu();
         }
+        // 혜택 내역 출력하기
+        christmasOutputView.printPromotionResult(christmasPromotion.getPromotionResult());
     }
 }

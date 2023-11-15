@@ -26,4 +26,10 @@ public class ChristmasOutputView implements ChristmasConsts {
         System.out.println("<증정 메뉴>");
         System.out.printf("%s %d개", "샴페인", 1);
     }
+
+    public void printPromotionResult(HashMap<String, Integer> promotionResult){
+        promotionResult.forEach((key, value) -> {
+            System.out.printf("%s: -%d원", key, value);
+        });
+    }
 }
