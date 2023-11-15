@@ -17,49 +17,44 @@ class ChristmasPromotionTest {
     }
     @Test
     void 크리스마스_디데이_이벤트_추가() {
-        int ddayPromotionAmount = christmasPromotion.addChristmasDDayEvent(orderHistory.getOrderDate());
-        assertThat(ddayPromotionAmount).isEqualTo(1200);
+        christmasPromotion.addChristmasDDayEvent(orderHistory.getOrderDate());
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(1200);
     }
 
     @Test
     void 평일_할인_이벤트_추가(){
-        int weekdayEventAmount = christmasPromotion.addWeekDayEvent(orderHistory);
-        assertThat(weekdayEventAmount).isEqualTo(4046);
+        christmasPromotion.addWeekDayEvent(orderHistory);
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(4046);
     }
 
     @Test
     void 주말_할인_이벤트_추가(){
-        int weekendEventAmount = christmasPromotion.addWeekEndEvent(orderHistory);
-        assertThat(weekendEventAmount).isEqualTo(4046);
+        christmasPromotion.addWeekEndEvent(orderHistory);
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(4046);
     }
 
     @Test
     void 특별_할인_이벤트_추가(){
-        int specialEventAmount = christmasPromotion.addSpecialEvent(orderHistory);
-        assertThat(specialEventAmount).isEqualTo(1000);
+        christmasPromotion.addSpecialEvent(orderHistory);
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(1000);
     }
 
     @Test
     void 증정_이벤트_추가(){
-        int presentationEventAmount = christmasPromotion.addPresentationEvent(orderHistory);
-        assertThat(presentationEventAmount).isEqualTo(25000);
+        christmasPromotion.addPresentationEvent(orderHistory);
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(25000);
     }
 
     @Test
     void 총_혜택_금액으로_배지_부여하기(){
-        int totalPromotionAmount = christmasPromotion.addChristmasDDayEvent(orderHistory.getOrderDate());
-        totalPromotionAmount+=christmasPromotion.addWeekDayEvent(orderHistory);
-        totalPromotionAmount+=christmasPromotion.addWeekEndEvent(orderHistory);
-        totalPromotionAmount+=christmasPromotion.addSpecialEvent(orderHistory);
-        totalPromotionAmount+=christmasPromotion.addPresentationEvent(orderHistory);
+        christmasPromotion.addChristmasDDayEvent(orderHistory.getOrderDate());
+        christmasPromotion.addWeekDayEvent(orderHistory);
+        christmasPromotion.addWeekEndEvent(orderHistory);
+        christmasPromotion.addSpecialEvent(orderHistory);
+        christmasPromotion.addPresentationEvent(orderHistory);
         christmasPromotion.updateDecemberEventBadge();
         DecemberEventBadge result = christmasPromotion.getDecemberEventBadge();
-        assertThat(totalPromotionAmount).isEqualTo(31246);
+        assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(31246);
         assertThat(result).isEqualTo(DecemberEventBadge.SANTA);
     }
 }
