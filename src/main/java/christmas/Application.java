@@ -40,5 +40,8 @@ public class Application {
         christmasOutputView.printPromotionResult(christmasPromotion.getPromotionResult());
         // 총 혜택 금액 출력하기
         christmasOutputView.printTotalPromotionAmount(christmasPromotion.getTotalPromotionAmount());
+        // 할인 후 예상 결제 금액 출력하기
+        int expectAmountAfterDiscount = christmasService.getExpectAmountAfterDiscount(christmasPromotion);
+        christmasOutputView.printExpectAmountAfterDiscount(expectAmountAfterDiscount);
     }
 }
