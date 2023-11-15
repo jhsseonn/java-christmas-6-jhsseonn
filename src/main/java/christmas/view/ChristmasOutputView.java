@@ -26,46 +26,39 @@ public class ChristmasOutputView implements ChristmasConsts {
 
     public void printTotalOrderAmount(int totalOrderAmount){
         System.out.println("<할인 전 총주문 금액>");
-        System.out.printf("%d원\n", totalOrderAmount);
-        System.out.println();
+        System.out.printf("%d원\n\n", totalOrderAmount);
     }
 
     public void printPresentationEventMenu(){
         System.out.println("<증정 메뉴>");
-        System.out.printf("%s %d개\n", "샴페인", 1);
-        System.out.println();
+        System.out.printf("%s %d개\n\n", "샴페인", 1);
     }
 
     public void printPromotionResult(HashMap<ChristmasPromotionEvents, Integer> promotionResult){
         System.out.println("<혜택 내역>");
         promotionResult.forEach((key, value) -> {
-            System.out.printf("%s: -%d원\n", key.getPromotionName(), value);
+            System.out.printf("%s: -%d원\n\n", key.getPromotionName(), value);
         });
-        System.out.println();
     }
 
     public void printPromotionResultNone(){
         System.out.println("<혜택 내역>");
-        System.out.println("없음");
-        System.out.println();
+        System.out.println("없음\n");
     }
 
     public void printTotalPromotionAmount(int totalPromotionAmount){
         System.out.println("<총혜택 금액>");
-        System.out.printf("-%d\n", totalPromotionAmount);
-        System.out.println();
+        System.out.printf("-%d원\n\n", totalPromotionAmount);
     }
 
     public void printTotalPromotionAmountNone(){
         System.out.println("<총혜택 금액>");
-        System.out.println("없음");
-        System.out.println();
+        System.out.println("없음\n");
     }
 
     public void printExpectAmountAfterDiscount(int expectAmountAfterDiscount){
         System.out.println("<할인 후 예상 결제 금액>");
-        System.out.printf("%d\n", expectAmountAfterDiscount);
-        System.out.println();
+        System.out.printf("%d원\n\n", expectAmountAfterDiscount);
     }
 
     public void printDecemberEventBadge(String decemberEventBadge){
