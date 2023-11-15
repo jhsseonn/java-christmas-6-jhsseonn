@@ -54,6 +54,7 @@ public interface ChristmasConsts {
     int ORDER_MENUS_ARE_ONLY_BEVERAGE = 1;
     String SPLIT_INPUT_STRING = ",";
     String SPLIT_INPUT_MENU = "-";
+    char SPLIT_INPUT_MENU_CHAR = '-';
     String DECIMAL_FORMAT_PATTERN = "###,###";
     String ORDER_MENUS_FORMAT = "%s %s개\n";
     String ORDER_AMOUNT_FORMAT = "%s원\n\n";

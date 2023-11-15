@@ -21,12 +21,4 @@ class ChristmasMenuTest extends ChristmasMenuFixture{
         int result = getChristmasMenu.get(유효한_메뉴);
         assertThat(result).isEqualTo(유효한_메뉴_가격);
     }
-
-    @Test
-    void getMenu() {
-    }
-
-    @Test
-    void getMenuPrice() {
-    }
 }
