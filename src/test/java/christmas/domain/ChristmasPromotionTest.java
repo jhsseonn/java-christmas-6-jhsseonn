@@ -41,4 +41,11 @@ class ChristmasPromotionTest {
         assertThat(specialEventAmount).isEqualTo(1000);
         assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(1000);
     }
+
+    @Test
+    void 증정_이벤트_추가(){
+        int presentationEventAmount = christmasPromotion.addPresentationEvent(orderHistory);
+        assertThat(presentationEventAmount).isEqualTo(25000);
+        assertThat(christmasPromotion.getTotalPromotionAmount()).isEqualTo(25000);
+    }
 }
