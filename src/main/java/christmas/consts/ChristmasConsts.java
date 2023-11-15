@@ -51,6 +51,7 @@ public interface ChristmasConsts {
     int PRESENTATION_DISCOUNT_AMOUNT = 120000;
     int PRESENTATION_PROMOTION_COUNT = 1;
     int MENU_COUNT_MAXIMUM = 20;
+    int ORDER_MENUS_ARE_ONLY_BEVERAGE = 1;
     String SPLIT_INPUT_STRING = ",";
     String SPLIT_INPUT_MENU = "-";
     String DECIMAL_FORMAT_PATTERN = "###,###";

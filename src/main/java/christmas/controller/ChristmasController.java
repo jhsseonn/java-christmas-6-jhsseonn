@@ -47,24 +47,33 @@ public class ChristmasController implements ChristmasConsts {
     }
 
     public List<OrderMenu> getOrderMenus(){
-        String inputOrderMenus = christmasInputView.getOrderMenus();
         List<OrderMenu> createOrderMenus = new ArrayList<>();
-        List<String> orderMenus = List.of(inputOrderMenus.split(SPLIT_INPUT_STRING));
-        int totalOrderMenuCount = INTEGER_RESET;
-        for(String menu:orderMenus){
-            OrderMenu orderMenu = getOrderMenu(menu);
-            isOrderMenuAlreadyExist(createOrderMenus, orderMenu.getMenu());
-            createOrderMenus.add(orderMenu);
-            totalOrderMenuCount+=orderMenu.getOrderMenuCount();
-        }
+        List<String> orderMenus = getInputOrderMenus();
         try{
-            isOrderMenusAllBeverage(createOrderMenus);
+            for(String menu:orderMenus){
+                OrderMenu orderMenu = getOrderMenu(menu);
+                isOrderMenuAlreadyExist(createOrderMenus, orderMenu.getMenu());
+                createOrderMenus.add(orderMenu);
+            }
+            validateOrderMenus(createOrderMenus);
         } catch(IllegalArgumentException e){
             System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
             getOrderMenus();
         }
-        isValidRangeOfMenuCount(totalOrderMenuCount);
         return createOrderMenus;
+    }
+
+    public void validateInputSplit(String input) throws IllegalArgumentException{
+        if(!input.contains(SPLIT_INPUT_STRING)){
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public List<String> getInputOrderMenus() throws IllegalArgumentException{
+        String inputOrderMenus = christmasInputView.getOrderMenus();
+        validateInputSplit(inputOrderMenus);
+        List<String> orderMenus = List.of(inputOrderMenus.split(SPLIT_INPUT_STRING));
+        return orderMenus;
     }
 
     public OrderMenu getOrderMenu(String menu){
@@ -100,18 +109,13 @@ public class ChristmasController implements ChristmasConsts {
         }
     }
 
-    public void isOrderMenuAlreadyExist(List<OrderMenu> orderMenus, String menu){
+    public void isOrderMenuAlreadyExist(List<OrderMenu> orderMenus, String menu) throws IllegalArgumentException{
         List<String> orderMenuNames = new ArrayList<>();
         for(OrderMenu orderMenu:orderMenus){
            orderMenuNames.add(orderMenu.getMenu());
         }
-        try {
-            if (orderMenuNames.contains(menu)){
-                throw new IllegalArgumentException();
-            }
-        } catch(IllegalArgumentException e){
-            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
-            getOrderMenus();
+        if (orderMenuNames.contains(menu)){
+            throw new IllegalArgumentException();
         }
     }
 
@@ -127,14 +131,9 @@ public class ChristmasController implements ChristmasConsts {
         }
     }
 
-    public void isValidRangeOfMenuCount(int menuCount){
-        try {
-            if (menuCount>MENU_COUNT_MAXIMUM){
-                throw new IllegalArgumentException();
-            }
-        } catch (IllegalArgumentException e){
-            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
-            getOrderMenus();
+    public void isValidRangeOfMenuCount(int menuCount) throws IllegalArgumentException{
+        if (menuCount>MENU_COUNT_MAXIMUM){
+            throw new IllegalArgumentException();
         }
     }
 
@@ -195,9 +194,22 @@ public class ChristmasController implements ChristmasConsts {
         for(OrderMenu orderMenu:orderMenus){
             christmasMenus.add(orderMenu.getChristmasMenu());
         }
-        if (christmasMenus.size()==1 && christmasMenus.contains(ChristmasMenu.BEVERAGE)){
+        if (christmasMenus.size()==ORDER_MENUS_ARE_ONLY_BEVERAGE && christmasMenus.contains(ChristmasMenu.BEVERAGE)){
             throw new IllegalArgumentException();
         }
+    }
+
+    public void validateMenuCount(List<OrderMenu> orderMenus) throws IllegalArgumentException{
+        int totalOrderAmount = INTEGER_RESET;
+        for(OrderMenu orderMenu:orderMenus){
+            totalOrderAmount+=orderMenu.getOrderMenuCount();
+        }
+        isValidRangeOfMenuCount(totalOrderAmount);
+    }
+
+    public void validateOrderMenus(List<OrderMenu> orderMenus){
+        validateMenuCount(orderMenus);
+        isOrderMenusAllBeverage(orderMenus);
     }
 
     public void runPromotion(){
