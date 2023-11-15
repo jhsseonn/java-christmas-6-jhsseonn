@@ -22,6 +22,19 @@ public class ChristmasController implements ChristmasConsts {
     final ChristmasOutputView christmasOutputView = new ChristmasOutputView();
     final ChristmasService christmasService = new ChristmasService();
 
+    public void runPromotion(){
+        christmasOutputView.printWelcome();
+        int expectedVisitDay = getExpectVisitDate();
+        List<OrderMenu> orderMenus = getOrderMenus();
+        Order order = new Order(expectedVisitDay, orderMenus);
+        ChristmasPromotion christmasPromotion = new ChristmasPromotion(order);
+        christmasOutputView.printChristmasPromotionPreview(expectedVisitDay);
+
+        printDecemberEventPlanner(order, christmasPromotion);
+        printExpectAmountAfterDiscount(christmasPromotion);
+        printDecemberEventBadge(christmasPromotion);
+    }
+
     public int getValidVisitDay(){
         int expectedVisitDay = INTEGER_RESET;
         try {
@@ -32,17 +45,6 @@ public class ChristmasController implements ChristmasConsts {
             getValidVisitDay();
         } finally {
             return expectedVisitDay;
-        }
-    }
-
-    public void isValidRangeVisitDay(int inputDay){
-        try{
-            if (inputDay<EVENT_START_DAY || inputDay>EVENT_END_DAY){
-                throw new IllegalArgumentException();
-            }
-        } catch (IllegalArgumentException e){
-            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_DAY);
-            getValidVisitDay();
         }
     }
 
@@ -63,12 +65,6 @@ public class ChristmasController implements ChristmasConsts {
         return createOrderMenus;
     }
 
-    public void validateInputSplit(String input) throws IllegalArgumentException{
-        if(!input.contains(SPLIT_INPUT_STRING)){
-            throw new IllegalArgumentException();
-        }
-    }
-
     public List<String> getInputOrderMenus() throws IllegalArgumentException{
         String inputOrderMenus = christmasInputView.getOrderMenus();
         validateInputSplit(inputOrderMenus);
@@ -85,56 +81,6 @@ public class ChristmasController implements ChristmasConsts {
         isValidRangeOfMenuCount(orderMenuCount);
         final OrderMenu orderMenu = new OrderMenu(menuName, orderMenuCount);
         return orderMenu;
-    }
-
-    public void isValidMenuFormat(String menu){
-        try{
-            if(!menu.contains(SPLIT_INPUT_MENU)){
-                throw new IllegalArgumentException();
-            }
-        } catch (IllegalArgumentException e){
-            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
-            getOrderMenus();
-        }
-    }
-
-    public void isMenuNameExist(String menuName){
-        try{
-            if(ChristmasMenu.findByMenu(menuName)==ChristmasMenu.NONE){
-                throw new IllegalArgumentException();
-            }
-        } catch (IllegalArgumentException e){
-            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
-            getOrderMenus();
-        }
-    }
-
-    public void isOrderMenuAlreadyExist(List<OrderMenu> orderMenus, String menu) throws IllegalArgumentException{
-        List<String> orderMenuNames = new ArrayList<>();
-        for(OrderMenu orderMenu:orderMenus){
-           orderMenuNames.add(orderMenu.getMenu());
-        }
-        if (orderMenuNames.contains(menu)){
-            throw new IllegalArgumentException();
-        }
-    }
-
-    public int getValidMenuCount(String menuAmount){
-        int menuCount = INTEGER_RESET;
-        try {
-            menuCount = Integer.parseInt(menuAmount);
-        } catch (NumberFormatException e) {
-            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
-            getOrderMenus();
-        } finally {
-            return menuCount;
-        }
-    }
-
-    public void isValidRangeOfMenuCount(int menuCount) throws IllegalArgumentException{
-        if (menuCount>MENU_COUNT_MAXIMUM){
-            throw new IllegalArgumentException();
-        }
     }
 
     public int getExpectVisitDate(){
@@ -189,6 +135,73 @@ public class ChristmasController implements ChristmasConsts {
         christmasOutputView.printDecemberEventBadge(decemberEventBadge.getDecemberEventBadge());
     }
 
+    public void isValidRangeVisitDay(int inputDay){
+        try{
+            if (inputDay<EVENT_START_DAY || inputDay>EVENT_END_DAY){
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e){
+            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_DAY);
+            getValidVisitDay();
+        }
+    }
+
+    public void validateInputSplit(String input) throws IllegalArgumentException{
+        if(!input.contains(SPLIT_INPUT_STRING)){
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public void isValidMenuFormat(String menu){
+        try{
+            if(!menu.contains(SPLIT_INPUT_MENU)){
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e){
+            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
+            getOrderMenus();
+        }
+    }
+
+    public void isMenuNameExist(String menuName){
+        try{
+            if(ChristmasMenu.findByMenu(menuName)==ChristmasMenu.NONE){
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e){
+            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
+            getOrderMenus();
+        }
+    }
+
+    public void isOrderMenuAlreadyExist(List<OrderMenu> orderMenus, String menu) throws IllegalArgumentException{
+        List<String> orderMenuNames = new ArrayList<>();
+        for(OrderMenu orderMenu:orderMenus){
+            orderMenuNames.add(orderMenu.getMenu());
+        }
+        if (orderMenuNames.contains(menu)){
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public int getValidMenuCount(String menuAmount){
+        int menuCount = INTEGER_RESET;
+        try {
+            menuCount = Integer.parseInt(menuAmount);
+        } catch (NumberFormatException e) {
+            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
+            getOrderMenus();
+        } finally {
+            return menuCount;
+        }
+    }
+
+    public void isValidRangeOfMenuCount(int menuCount) throws IllegalArgumentException{
+        if (menuCount>MENU_COUNT_MAXIMUM){
+            throw new IllegalArgumentException();
+        }
+    }
+
     public void isOrderMenusAllBeverage(List<OrderMenu> orderMenus) throws IllegalArgumentException{
         HashSet<ChristmasMenu> christmasMenus = new HashSet<>();
         for(OrderMenu orderMenu:orderMenus){
@@ -210,18 +223,5 @@ public class ChristmasController implements ChristmasConsts {
     public void validateOrderMenus(List<OrderMenu> orderMenus){
         validateMenuCount(orderMenus);
         isOrderMenusAllBeverage(orderMenus);
-    }
-
-    public void runPromotion(){
-        christmasOutputView.printWelcome();
-        int expectedVisitDay = getExpectVisitDate();
-        List<OrderMenu> orderMenus = getOrderMenus();
-        Order order = new Order(expectedVisitDay, orderMenus);
-        ChristmasPromotion christmasPromotion = new ChristmasPromotion(order);
-        christmasOutputView.printChristmasPromotionPreview(expectedVisitDay);
-
-        printDecemberEventPlanner(order, christmasPromotion);
-        printExpectAmountAfterDiscount(christmasPromotion);
-        printDecemberEventBadge(christmasPromotion);
     }
 }
