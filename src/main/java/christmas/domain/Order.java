@@ -14,12 +14,12 @@ public class Order implements ChristmasConsts {
     private List<OrderMenu> orderMenus;
     private int totalOrderAmount;
 
-    public Order(int expectedVisitDay, String orderMenus){
+    public Order(int expectedVisitDay, List<OrderMenu> orderMenus){
         LocalDate orderDate = updateOrderDate(expectedVisitDay);
         DayOfWeek orderDayOfWeek = updateOrderDayOfWeek(orderDate);
         this.orderDate = orderDate;
         this.orderDayOfWeek = orderDayOfWeek;
-        this.orderMenus = updateOrderMenus(orderMenus);
+        updateOrderMenus(orderMenus);
         this.totalOrderAmount = 0;
     }
 
@@ -33,17 +33,8 @@ public class Order implements ChristmasConsts {
         return orderDayOrWeek;
     }
 
-    public List<OrderMenu> updateOrderMenus(String inputOrderMenus){
-        List<OrderMenu> createOrderMenus = new ArrayList<>();
-        List<String> orderMenus = List.of(inputOrderMenus.split(","));
-        for(String menu:orderMenus){
-            List<String> menuCount = List.of(menu.split("-"));
-            String menuName = menuCount.get(0);
-            int menuAmount = Integer.parseInt(menuCount.get(1));
-            final OrderMenu orderMenu = new OrderMenu(menuName, menuAmount);
-            createOrderMenus.add(orderMenu);
-        }
-        return createOrderMenus;
+    public void updateOrderMenus(List<OrderMenu> orderMenus){
+        this.orderMenus = orderMenus;
     }
 
     public List<OrderMenu> getOrderMenus(){
@@ -66,14 +57,14 @@ public class Order implements ChristmasConsts {
         return orderDayOfWeek;
     }
 
-    public void computeTotalOrderAmount(){
+    public void computeTotalOrderAmount() {
         List<OrderMenu> orderMenus = getOrderMenus();
-        int totalOrderAmount=0;
-        for(OrderMenu menu:orderMenus){
+        int totalOrderAmount = 0;
+        for (OrderMenu menu : orderMenus) {
             ChristmasMenu christmasMenu = menu.getChristmasMenu();
             String menuName = menu.getMenu();
             int orderMenuCount = menu.getOrderMenuCount();
-            totalOrderAmount+=christmasMenu.getMenuPrice(menuName)*orderMenuCount;
+            totalOrderAmount += christmasMenu.getMenuPrice(menuName) * orderMenuCount;
         }
         updateTotalOrderAmount(totalOrderAmount);
     }
