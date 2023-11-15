@@ -26,6 +26,7 @@ public class ChristmasService implements ChristmasConsts {
         christmasPromotion.addWeekEndEvent(orderHistory);
         christmasPromotion.addSpecialEvent(orderHistory);
         christmasPromotion.addPresentationEvent(orderHistory);
+        christmasPromotion.updateTotalPromotionAmount();
         christmasPromotion.updateDecemberEventBadge();
     }
 
