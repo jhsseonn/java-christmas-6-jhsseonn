@@ -72,7 +72,7 @@ public class ChristmasController implements ChristmasConsts {
 
     public void isValidMenuFormat(String menu){
         try{
-            if(!menu.contains("-")){
+            if(!menu.contains(SPLIT_INPUT_MENU)){
                 throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e){
