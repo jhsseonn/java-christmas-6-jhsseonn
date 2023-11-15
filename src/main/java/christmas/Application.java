@@ -38,5 +38,7 @@ public class Application {
         }
         // 혜택 내역 출력하기
         christmasOutputView.printPromotionResult(christmasPromotion.getPromotionResult());
+        // 총 혜택 금액 출력하기
+        christmasOutputView.printTotalPromotionAmount(christmasPromotion.getTotalPromotionAmount());
     }
 }

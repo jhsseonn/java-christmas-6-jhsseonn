@@ -32,4 +32,9 @@ public class ChristmasOutputView implements ChristmasConsts {
             System.out.printf("%s: -%d원", key, value);
         });
     }
+
+    public void printTotalPromotionAmount(int totalPromotionAmount){
+        System.out.println("<총혜택 금액>");
+        System.out.printf("-%d", totalPromotionAmount);
+    }
 }
