@@ -60,7 +60,7 @@ public class ChristmasController implements ChristmasConsts {
     }
 
     public OrderMenu getOrderMenu(String menu){
-
+        isValidMenuFormat(menu);
         List<String> menuCount = List.of(menu.split(SPLIT_INPUT_MENU));
         String menuName = menuCount.get(0);
         isMenuNameExist(menuName);
