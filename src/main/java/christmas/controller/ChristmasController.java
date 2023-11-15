@@ -60,6 +60,7 @@ public class ChristmasController implements ChristmasConsts {
     }
 
     public OrderMenu getOrderMenu(String menu){
+
         List<String> menuCount = List.of(menu.split(SPLIT_INPUT_MENU));
         String menuName = menuCount.get(0);
         isMenuNameExist(menuName);
@@ -67,6 +68,17 @@ public class ChristmasController implements ChristmasConsts {
         isValidRangeOfMenuCount(orderMenuCount);
         final OrderMenu orderMenu = new OrderMenu(menuName, orderMenuCount);
         return orderMenu;
+    }
+
+    public void isValidMenuFormat(String menu){
+        try{
+            if(!menu.contains("-")){
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e){
+            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
+            getOrderMenus();
+        }
     }
 
     public void isMenuNameExist(String menuName){
