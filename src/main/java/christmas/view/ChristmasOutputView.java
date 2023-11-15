@@ -39,9 +39,21 @@ public class ChristmasOutputView implements ChristmasConsts {
         System.out.println();
     }
 
+    public void printPromotionResultNone(){
+        System.out.println("<혜택 내역>");
+        System.out.println("없음");
+        System.out.println();
+    }
+
     public void printTotalPromotionAmount(int totalPromotionAmount){
         System.out.println("<총혜택 금액>");
         System.out.printf("-%d\n", totalPromotionAmount);
+        System.out.println();
+    }
+
+    public void printTotalPromotionAmountNone(){
+        System.out.println("<총혜택 금액>");
+        System.out.println("없음");
         System.out.println();
     }
 
