@@ -55,7 +55,7 @@ public class ChristmasController implements ChristmasConsts {
         return createOrderMenus;
     }
 
-    public OrderMenu getOrderMenu(String menu){
+    public OrderMenu getOrderMenu(String menu) throws IllegalArgumentException{
         isValidMenuFormat(menu);
         List<String> menuCount = List.of(menu.split(SPLIT_INPUT_MENU));
         String menuName = menuCount.get(0);
@@ -128,24 +128,14 @@ public class ChristmasController implements ChristmasConsts {
     }
 
     public void isValidMenuFormat(String menu){
-        try{
-            if(!menu.contains(SPLIT_INPUT_MENU)){
-                throw new IllegalArgumentException();
-            }
-        } catch (IllegalArgumentException e){
-            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
-            getOrderMenus();
+        if(!menu.contains(SPLIT_INPUT_MENU)){
+            throw new IllegalArgumentException();
         }
     }
 
     public void isMenuNameExist(String menuName){
-        try{
-            if(ChristmasMenu.findByMenu(menuName)==ChristmasMenu.NONE){
-                throw new IllegalArgumentException();
-            }
-        } catch (IllegalArgumentException e){
-            System.out.printf(ERROR_MESSAGE_FORMAT, ERROR_MESSAGE_HEADER, ILLEGAL_INPUT_MENU_COUNT);
-            getOrderMenus();
+        if(ChristmasMenu.findByMenu(menuName)==ChristmasMenu.NONE){
+            throw new IllegalArgumentException();
         }
     }
 
