@@ -118,6 +118,8 @@ public class ChristmasPromotion implements ChristmasConsts {
             decemberEventBadge=DecemberEventBadge.TREE;
         } else if (totalPromotionAmount>=5000){
             decemberEventBadge=DecemberEventBadge.STAR;
+        } else if (totalPromotionAmount<5000){
+            decemberEventBadge=DecemberEventBadge.NONE;
         }
     }
 
